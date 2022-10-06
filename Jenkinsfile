@@ -21,6 +21,7 @@ pipeline {
             dir('terraform') {
               sh 'ls'
               sh 'terraform init'
+              sh 'terraform plan'
               sh 'terraform apply --auto-approve'
             }
           }
