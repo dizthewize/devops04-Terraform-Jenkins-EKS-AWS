@@ -15,8 +15,6 @@ pipeline {
         steps {
           script {
             dir('terraform') {
-              sh 'ls'
-              sh 'terraform -v'
               sh 'terraform init'
             }
           }
