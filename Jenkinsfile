@@ -6,6 +6,13 @@ pipeline {
       terraform 'terraform'
     }
     stages {
+      stage('Git Checkout') {
+        steps {
+          git credentials: 'gh-credentials', url: 'https://github.com/dizthewize/devops04-Terraform-Jenkins-EKS-AWS.git'
+        }
+      }
+    }
+    stages {
         stage('provision server') {
           environment {
             AWS_ACCESS_KEY_ID = credentials('jenkins_aws_access_key')
