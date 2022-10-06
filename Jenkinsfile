@@ -11,21 +11,32 @@ pipeline {
           git branch: 'main', credentialsId: 'gh-credentials', url: 'https://github.com/dizthewize/devops04-Terraform-Jenkins-EKS-AWS.git'
         }
       }
-      stage('provision server') {
-        environment {
-          AWS_ACCESS_KEY_ID = credentials('jenkins_aws_access_key')
-            AWS_SECRET_ACCESS_KEY = credentials('jenkins_aws_secret_access_key')
-        }
+      stage('Terraform Init') {
         steps {
           script {
             dir('terraform') {
-              sh 'ls'
               sh 'terraform init'
-              sh 'terraform plan'
-              sh 'terraform apply --auto-approve'
             }
           }
         }
+      }
+      stage('Terraform Plan') {
+          steps {
+            script {
+              dir('terraform') {
+                sh 'terraform plan'
+              }
+            }
+          }
+      }
+      stage('Terraform Apply') {
+          steps {
+            script {
+              dir('terraform') {
+                sh 'terraform apply --auto-approve'
+              }
+            }
+          }
       }
     }
 }
