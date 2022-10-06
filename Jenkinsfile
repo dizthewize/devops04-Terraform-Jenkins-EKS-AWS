@@ -8,7 +8,7 @@ pipeline {
     stages {
       stage('Git Checkout') {
         steps {
-          git credentials: 'gh-credentials', url: 'https://github.com/dizthewize/devops04-Terraform-Jenkins-EKS-AWS.git'
+          git credentialsId: 'gh-credentials', url: 'https://github.com/dizthewize/devops04-Terraform-Jenkins-EKS-AWS.git'
         }
       }
       stage('provision server') {
