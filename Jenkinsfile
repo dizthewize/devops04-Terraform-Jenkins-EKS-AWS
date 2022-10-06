@@ -1,12 +1,5 @@
 #!/usr/bin/env groovy
 
-library identifier: '', retriever: modernSCM(
-  [$class: 'Github',
-    remote: 'https://github.com/dizthewize/devops04-Terraform-Jenkins-EKS-AWS.git'
-    credentialsId: 'gh-credentials'
-  ]
-)
-
 pipeline {
     agent any
     tools {
