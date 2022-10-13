@@ -15,20 +15,28 @@ pipeline {
     stages {
       stage('Init TF') {
         steps {
-          sh '''
-            ls -al
-            sed -i "s|/home/dungpham/.aws/credentials|/root/.aws/credentials|g" main.tf
-            cat main.tf
-            terraform init
-          '''
+          script {
+              dir('terraform') {
+                    sh '''
+                  ls -al
+                  sed -i "s|/root/.aws/credentials|g" vpc.tf
+                  cat vpc.tf
+                  terraform init
+                '''
+              }
+          }
         }
       }
 
       stage('Plan TF') {
         steps {
-          sh '''
-            terraform plan
-          '''
+          script {
+              dir('terraform') {
+                sh '''
+                  terraform plan
+                '''
+              }
+          }
         }
       }
 
@@ -44,9 +52,13 @@ pipeline {
 
       stage('Apply TF') {
         steps {
-          sh '''
-            terraform apply -auto-approve
-          '''
+          script {
+              dir('terraform') {
+                sh '''
+                  terraform apply -auto-approve
+                '''
+              }
+          }
         }
       }
 
@@ -62,9 +74,13 @@ pipeline {
 
       stage('Destroy TF') {
         steps {
-          sh '''
-            terraform destroy -auto-approve
-          '''
+          script {
+              dir('terraform') {
+                sh '''
+                  terraform destroy -auto-approve
+                '''
+              }
+          }
         }
       }
 
