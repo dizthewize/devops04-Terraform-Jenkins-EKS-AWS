@@ -2,8 +2,8 @@ module "eks" {
   source  = "terraform-aws-modules/eks/aws"
   version = "18.30.0"
   # insert the 17 required variables here
-  cluster_name = "myapp-eks-cluster"
-  cluster_version = "1.25"
+  cluster_name = "myeks-eks-cluster"
+  cluster_version = "1.22"
 
   subnet_ids = module.myapp-vpc.private_subnets
   vpc_id = module.myapp-vpc.vpc_id
@@ -16,13 +16,13 @@ module "eks" {
       max_size = 3
       desired_size = 3
 
-      instance_type = "t2.small"
+      instance_type = "t2.micro"
     }
   }
 
   # tags here are not required but helps with reference
   tags = {
     environment = "development"
-    application = "myapp"
+    application = "myeks"
   }
 }

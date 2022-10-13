@@ -9,7 +9,7 @@ module "myapp-vpc" {
   source  = "terraform-aws-modules/vpc/aws"
   version = "3.16.0"
 
-  name = "myapp-vpc"
+  name = "myk8s-vpc"
   cidr = var.vpc_cidr_block
   private_subnets = var.private_subnet_cidr_blocks
   public_subnets = var.public_subnet_cidr_blocks
@@ -26,19 +26,19 @@ module "myapp-vpc" {
   # helps K8s cloud controller manager detect and identify resources that
   # belong to this cluster
   tags = {
-    "kubernetes.io/cluster/myapp-eks-cluster" = "shared"
+    "kubernetes.io/cluster/myeks-eks-cluster" = "shared"
   }
 
   # subnet tags are also used in the way to help vpc identify subnets and
   # between private and public
   public_subnet_tags = {
-    "kubernetes.io/cluster/myapp-eks-cluster" = "shared"
+    "kubernetes.io/cluster/myeks-eks-cluster" = "shared"
     # sets up cloud native elb on AWS for external load balancer
     "kubernetes.io/role/elb" = 1
   }
 
   private_subnet_tags = {
-    "kubernetes.io/cluster/myapp-eks-cluster" = "shared"
+    "kubernetes.io/cluster/myeks-eks-cluster" = "shared"
     "kubernetes.io/role/internal-elb" = 1
   }
 }
