@@ -17,9 +17,8 @@ pipeline {
         steps {
           script {
               dir('terraform') {
-                    sh '''
+                sh '''
                   ls -al
-                  sed -i "s|/root/.aws/credentials|g" vpc.tf
                   cat vpc.tf
                   terraform init
                 '''
